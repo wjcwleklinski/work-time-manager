@@ -17,7 +17,7 @@ public class EmployeeProjectId implements Serializable {
     private Long employeeId;
 
 
-    public EmployeeProjectId(Long projectId, Long employeeId) {
+    public EmployeeProjectId(Long employeeId, Long projectId) {
         this.projectId = projectId;
         this.employeeId = employeeId;
     }
@@ -56,6 +56,11 @@ public class EmployeeProjectId implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(employeeId,projectId);
+    }
+
+    @Override
+    public String toString() {
+        return this.employeeId + "_" + this.projectId;
     }
 }
 
