@@ -1,7 +1,10 @@
 package com.wjcwleklinski.worktimemanager.entity;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
@@ -21,11 +24,14 @@ public class Employee {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProjectDetails> projects;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeProjectId.employeeId")
+    private List<EmployeeProject> assignedProjects;
 
     @Column(name = "total_hours")
-    private Long totalHours;
+    private Long totalHours = 0L;
+
+    public Employee() {}
 
     public Long getEmployeeId() {
         return employeeId;
@@ -59,12 +65,12 @@ public class Employee {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<ProjectDetails> getProjects() {
-        return projects;
+    public List<EmployeeProject> getAssignedProjects() {
+        return assignedProjects;
     }
 
-    public void setProjects(List<ProjectDetails> projects) {
-        this.projects = projects;
+    public void setAssignedProjects(List<EmployeeProject> assignedProjects) {
+        this.assignedProjects = assignedProjects;
     }
 
     public Long getTotalHours() {
@@ -73,5 +79,34 @@ public class Employee {
 
     public void setTotalHours(Long totalHours) {
         this.totalHours = totalHours;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", totalHours=" + totalHours +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(employeeId, employee.employeeId) &&
+                Objects.equals(firstName, employee.firstName) &&
+                Objects.equals(lastName, employee.lastName) &&
+                Objects.equals(phoneNumber, employee.phoneNumber) &&
+                Objects.equals(totalHours, employee.totalHours);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, firstName, lastName, phoneNumber, totalHours);
     }
 }
