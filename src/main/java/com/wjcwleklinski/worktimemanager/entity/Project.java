@@ -11,7 +11,7 @@ public class Project {
 
     @Id
     @Column(name = "project_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long projectId;
 
     @Column(name = "name")
@@ -20,7 +20,7 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "employee_project",
     joinColumns = @JoinColumn(name = "project_id"),
     inverseJoinColumns = @JoinColumn(name = "employee_id"))

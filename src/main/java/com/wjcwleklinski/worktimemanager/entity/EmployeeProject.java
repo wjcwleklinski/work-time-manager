@@ -28,18 +28,11 @@ public class EmployeeProject {
         this.hours = hours;
     }
 
+    /**
+     * Jackson interprets every getter
+     */
     public Long getProjectId() {
         return employeeProjectId.getProjectId();
     }
 
-//    @ManyToOne
-//    private Employee employee;
-//
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
 }

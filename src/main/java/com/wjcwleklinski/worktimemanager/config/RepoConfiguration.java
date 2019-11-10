@@ -15,7 +15,7 @@ public class RepoConfiguration implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.exposeIdsFor(Employee.class, Project.class, EmployeeProject.class);
+        config.exposeIdsFor(Employee.class, Project.class);
 
     }
 
