@@ -1,4 +1,4 @@
-package com.wjcwleklinski.worktimemanager.repositories;
+package com.wjcwleklinski.worktimemanager.repository;
 
 import com.wjcwleklinski.worktimemanager.entity.EmployeeProject;
 import com.wjcwleklinski.worktimemanager.entity.EmployeeProjectId;

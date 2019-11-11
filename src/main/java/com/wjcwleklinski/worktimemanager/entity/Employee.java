@@ -29,7 +29,12 @@ public class Employee {
     private List<EmployeeProject> assignedProjects;
 
     @Column(name = "total_hours")
-    private Long totalHours = 0L;
+    private Integer totalHours = 0;
+
+    public void updateTotalHours(Integer prevHours, Integer hoursToUpdate){
+        //this.totalHours = this.totalHours - prevHours + hoursToUpdate;
+        this.totalHours = 125;
+    }
 
     public Employee() {}
 
@@ -73,11 +78,11 @@ public class Employee {
         this.assignedProjects = assignedProjects;
     }
 
-    public Long getTotalHours() {
+    public Integer getTotalHours() {
         return totalHours;
     }
 
-    public void setTotalHours(Long totalHours) {
+    public void setTotalHours(Integer totalHours) {
         this.totalHours = totalHours;
     }
 

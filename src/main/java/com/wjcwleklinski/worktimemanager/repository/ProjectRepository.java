@@ -1,4 +1,4 @@
-package com.wjcwleklinski.worktimemanager.repositories;
+package com.wjcwleklinski.worktimemanager.repository;
 
 import com.wjcwleklinski.worktimemanager.entity.Project;
 import org.springframework.data.repository.CrudRepository;
