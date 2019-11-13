@@ -17,7 +17,7 @@
     <pageHeader>
         <band height="49" splitType="Stretch">
             <staticText>
-                <reportElement x="170" y="10" width="230" height="30" uuid="04d35299-5eb0-4a34-b340-3ca5cf8290fc"/>
+                <reportElement x="100" y="10" width="230" height="30" uuid="04d35299-5eb0-4a34-b340-3ca5cf8290fc"/>
                 <textElement>
                     <font size="20" isBold="true"/>
                 </textElement>
@@ -43,7 +43,7 @@
                 <text><![CDATA[Name]]></text>
             </staticText>
             <staticText>
-                <reportElement x="210" y="10" width="70" height="20" uuid="93727672-9f69-4856-aa26-33837e8dc417"/>
+                <reportElement x="210" y="10" width="200" height="20" uuid="93727672-9f69-4856-aa26-33837e8dc417"/>
                 <textElement>
                     <font fontName="SansSerif" isBold="true"/>
                 </textElement>
@@ -63,7 +63,7 @@
                 <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="210" y="4" width="70" height="16" uuid="447253d3-d268-4873-b0b7-9c174c6a7c9f"/>
+                <reportElement x="210" y="4" width="200" height="16" uuid="447253d3-d268-4873-b0b7-9c174c6a7c9f"/>
                 <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
             </textField>
 

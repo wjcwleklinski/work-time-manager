@@ -10,6 +10,8 @@
     <field name="lastName" class="java.lang.String"/>
     <field name="phoneNumber" class="java.lang.String"/>
     <field name="totalHours" class="java.lang.Integer"/>
+    <field name="assignedProjects" class="java.util.List"/>
+
     <background>
         <band splitType="Stretch"/>
     </background>
@@ -19,7 +21,7 @@
     <pageHeader>
         <band height="49" splitType="Stretch">
             <staticText>
-                <reportElement x="170" y="10" width="230" height="30" uuid="04d35299-5eb0-4a34-b340-3ca5cf8290fc"/>
+                <reportElement x="220" y="10" width="230" height="30" uuid="04d35299-5eb0-4a34-b340-3ca5cf8290fc"/>
                 <textElement>
                     <font size="20" isBold="true"/>
                 </textElement>
@@ -38,33 +40,42 @@
                 <text><![CDATA[Id]]></text>
             </staticText>
             <staticText>
-                <reportElement x="90" y="10" width="100" height="20" uuid="faf9b9ee-7cf2-4ea5-80b8-d371c3c753b9"/>
+                <reportElement x="50" y="10" width="100" height="20" uuid="faf9b9ee-7cf2-4ea5-80b8-d371c3c753b9"/>
                 <textElement>
                     <font size="11" isBold="true"/>
                 </textElement>
                 <text><![CDATA[First Name]]></text>
             </staticText>
             <staticText>
-                <reportElement x="210" y="10" width="70" height="20" uuid="93727672-9f69-4856-aa26-33837e8dc417"/>
+                <reportElement x="160" y="10" width="70" height="20" uuid="93727672-9f69-4856-aa26-33837e8dc417"/>
                 <textElement>
                     <font fontName="SansSerif" isBold="true"/>
                 </textElement>
                 <text><![CDATA[Last Name]]></text>
             </staticText>
             <staticText>
-                <reportElement x="314" y="10" width="70" height="20" uuid="09b47abe-09b2-479a-bb76-9770e361a23c"/>
+                <reportElement x="264" y="10" width="70" height="20" uuid="09b47abe-09b2-479a-bb76-9770e361a23c"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Phone number]]></text>
             </staticText>
             <staticText>
-                <reportElement x="410" y="10" width="70" height="20" uuid="09b47abe-09b2-479a-bb76-9770e361a23c"/>
+                <reportElement x="360" y="10" width="70" height="20" uuid="09b47abe-09b2-479a-bb76-9770e361a23c"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Total hours]]></text>
             </staticText>
+            <staticText>
+                <reportElement x="465" y="10" width="150" height="20" uuid="09b47abe-09b2-479a-bb76-9770e361a23c"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Assigned projects]]></text>
+            </staticText>
+
+
         </band>
     </columnHeader>
 
@@ -75,26 +86,40 @@
                 <textFieldExpression><![CDATA[$F{employeeId}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="90" y="4" width="70" height="16" uuid="ba6e9cfa-6d4c-470b-8bc4-eb2e3411c21e"/>
+                <reportElement x="50" y="4" width="70" height="16" uuid="ba6e9cfa-6d4c-470b-8bc4-eb2e3411c21e"/>
                 <textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="210" y="4" width="70" height="16" uuid="447253d3-d268-4873-b0b7-9c174c6a7c9f"/>
+                <reportElement x="160" y="4" width="70" height="16" uuid="447253d3-d268-4873-b0b7-9c174c6a7c9f"/>
                 <textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="314" y="4" width="100" height="16" uuid="8992d0ad-1f5e-4210-b50b-1e29dc66f119"/>
+                <reportElement x="264" y="4" width="100" height="16" uuid="8992d0ad-1f5e-4210-b50b-1e29dc66f119"/>
                 <textFieldExpression><![CDATA[$F{phoneNumber}]]></textFieldExpression>
             </textField>
             <line>
-                <reportElement x="-3" y="27" width="521" height="1" uuid="9b493a65-a499-4199-90bb-b3fedbe45f85"/>
+                <reportElement x="-3" y="27" width="721" height="1" uuid="9b493a65-a499-4199-90bb-b3fedbe45f85"/>
             </line>
             <textField>
-                <reportElement x="410" y="4" width="100" height="16" uuid="fcdd8979-dc44-46e3-be56-11e5f33b8e0c">
+                <reportElement x="360" y="4" width="100" height="16" uuid="fcdd8979-dc44-46e3-be56-11e5f33b8e0c">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="73fad7b3-74b5-4436-bd46-d2b9c3c113fd"/>
                 </reportElement>
                 <textFieldExpression><![CDATA[$F{totalHours}]]></textFieldExpression>
             </textField>
+
+
+
+            <subreport>
+                <reportElement positionType="Float" x="465" y="4" width="100" height="16" isRemoveLineWhenBlank="true"/>
+                <dataSourceExpression>
+                    new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource
+                    ($F{assignedProjects})
+                </dataSourceExpression>
+                <subreportExpression class="java.lang.String">
+                    <![CDATA["epReport.jasper"]]>
+                </subreportExpression>
+            </subreport>
+
         </band>
     </detail>
     <columnFooter>

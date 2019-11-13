@@ -27,6 +27,7 @@ public class EmployeeService {
             reportItem.put("lastName", employee.getLastName());
             reportItem.put("phoneNumber", employee.getPhoneNumber());
             reportItem.put("totalHours", employee.getTotalHours());
+            reportItem.put("assignedProjects", employee.getAssignedProjects());
             result.add(reportItem);
         }
 

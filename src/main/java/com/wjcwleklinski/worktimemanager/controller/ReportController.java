@@ -1,10 +1,12 @@
 package com.wjcwleklinski.worktimemanager.controller;
 
+import com.wjcwleklinski.worktimemanager.service.EmployeeProjectService;
 import com.wjcwleklinski.worktimemanager.service.EmployeeService;
 import com.wjcwleklinski.worktimemanager.service.ProjectService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.util.JRSaver;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class ReportController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private EmployeeProjectService employeeProjectService;
+
     @GetMapping
     public String index(ModelMap modelMap) {
         return "report/index";
@@ -37,7 +42,14 @@ public class ReportController {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employeeService.report());
         InputStream inputStream = this.getClass().getResourceAsStream("/reports/employee_report.jrxml");
         JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+        //JRBeanCollectionDataSource dataSource2 = new JRBeanCollectionDataSource(employeeProjectService.report()); //
+        InputStream is2 = this.getClass().getResourceAsStream("/reports/ep_report.jrxml");
+        JasperReport epReport = JasperCompileManager.compileReport(is2);
+        JRSaver.saveObject(epReport, "epReport.jasper");
+
         JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
+        //JasperPrint subreportPrinter = JasperFillManager.fillReport(epReport, null, dataSource2); //
         HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
         exporter.setExporterInput(new SimpleExporterInput(print));
         exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
@@ -51,6 +63,9 @@ public class ReportController {
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(projectService.report());
         InputStream inputStream = this.getClass().getResourceAsStream("/reports/project_report.jrxml");
         JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+        //JRSaver.saveObject(report, "projectReport.jasper");
+
         JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
         HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
         exporter.setExporterInput(new SimpleExporterInput(print));
