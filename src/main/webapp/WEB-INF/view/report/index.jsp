@@ -9,7 +9,9 @@
 <body>
 
 	<h3>Reports</h3>
-	<a href="${pageContext.request.contextPath }/report/employee" target="_blank">Generate Report</a>
-
+	<a href="${pageContext.request.contextPath }/report/employee" target="_blank">Employee Report</a>
+    <br>
+    <br>
+    <a href="${pageContext.request.contextPath }/report/project" target="_blank">Project Report</a>
 </body>
 </html>
