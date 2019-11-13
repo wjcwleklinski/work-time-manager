@@ -10,16 +10,15 @@ import com.wjcwleklinski.worktimemanager.repository.EmployeeProjectRepository;
 import com.wjcwleklinski.worktimemanager.repository.EmployeeRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.BasePathAwareController;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 import java.util.Optional;
 
-@BasePathAwareController
+@RepositoryRestController
 public class ApiController {
 
     @Autowired
@@ -64,6 +63,12 @@ public class ApiController {
 
 
     }
+
+
+
+
+
+
 
     @ExceptionHandler(EmployeeProjectNotFoundException.class)
     public ResponseEntity<Error> recordNotFound(EmployeeProjectNotFoundException e) {

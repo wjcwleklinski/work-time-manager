@@ -1,6 +1,5 @@
 package com.wjcwleklinski.worktimemanager.entity;
 
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,11 +31,16 @@ public class Employee {
     private Integer totalHours = 0;
 
     public void updateTotalHours(Integer prevHours, Integer hoursToUpdate){
-        //this.totalHours = this.totalHours - prevHours + hoursToUpdate;
-        this.totalHours = 125;
+        this.totalHours = this.totalHours - prevHours + hoursToUpdate;
     }
 
     public Employee() {}
+
+    public Employee(String firstName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
 
     public Long getEmployeeId() {
         return employeeId;
