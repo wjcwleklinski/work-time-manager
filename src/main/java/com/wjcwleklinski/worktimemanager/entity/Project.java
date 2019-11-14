@@ -4,6 +4,7 @@ package com.wjcwleklinski.worktimemanager.entity;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -24,13 +25,15 @@ public class Project {
     @JoinTable(name = "employee_project",
     joinColumns = @JoinColumn(name = "project_id"),
     inverseJoinColumns = @JoinColumn(name = "employee_id"))
-    private List<Employee> employees;
+    private Set<Employee> employees;
 
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public Project() {}
+
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
 
@@ -59,14 +62,20 @@ public class Project {
         this.description = description;
     }
 
+    public void addEmployee(Employee employee) {
+        this.employees.add(employee);
+    }
+
+    public void removeEmployee(Employee employee) {
+        this.employees.remove(employee);
+    }
 
     @Override
     public String toString() {
         return "Project{" +
                 "projectId=" + projectId +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", employees=" +
+                ", description='" + description +
                 '}';
     }
 

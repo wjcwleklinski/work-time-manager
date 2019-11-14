@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<h3>Reports</h3>
+	<h3>Reports and statistics</h3>
 	<a href="${pageContext.request.contextPath }/report/employee" target="_blank">Employee Report</a>
     <br>
     <br>

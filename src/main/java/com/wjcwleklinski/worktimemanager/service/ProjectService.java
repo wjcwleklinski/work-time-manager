@@ -5,10 +5,7 @@ import com.wjcwleklinski.worktimemanager.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProjectService {
@@ -29,5 +26,13 @@ public class ProjectService {
         }
 
         return result;
+    }
+
+    public Optional<Project> findById(Long id) {
+        return projectRepository.findById(id);
+    }
+
+    public Project save(Project employee) {
+        return projectRepository.save(employee);
     }
 }

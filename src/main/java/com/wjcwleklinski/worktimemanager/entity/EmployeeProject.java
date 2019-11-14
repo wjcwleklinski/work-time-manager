@@ -12,6 +12,13 @@ public class EmployeeProject {
     @Column(columnDefinition = "integer default 0")
     private Integer hours;
 
+    public EmployeeProject(EmployeeProjectId employeeProjectId, Integer hours) {
+        this.employeeProjectId = employeeProjectId;
+        this.hours = hours;
+    }
+
+    public EmployeeProject() {}
+
     public EmployeeProjectId getEmployeeProjectId() {
         return employeeProjectId;
     }

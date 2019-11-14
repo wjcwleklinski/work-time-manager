@@ -10,7 +10,7 @@
     <field name="lastName" class="java.lang.String"/>
     <field name="phoneNumber" class="java.lang.String"/>
     <field name="totalHours" class="java.lang.Integer"/>
-    <field name="assignedProjects" class="java.util.List"/>
+    <field name="assignedProjects" class="java.util.Set"/>
 
     <background>
         <band splitType="Stretch"/>

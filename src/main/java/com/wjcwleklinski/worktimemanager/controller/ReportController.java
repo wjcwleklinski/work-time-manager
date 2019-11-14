@@ -1,17 +1,12 @@
 package com.wjcwleklinski.worktimemanager.controller;
 
-import com.wjcwleklinski.worktimemanager.service.EmployeeProjectService;
 import com.wjcwleklinski.worktimemanager.service.EmployeeService;
 import com.wjcwleklinski.worktimemanager.service.ProjectService;
 import com.wjcwleklinski.worktimemanager.service.StatisticsService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.util.JRSaver;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("report")
@@ -32,9 +29,6 @@ public class ReportController {
     private ProjectService projectService;
 
     @Autowired
-    private EmployeeProjectService employeeProjectService;
-
-    @Autowired
     private StatisticsService statisticsService;
 
     @GetMapping
@@ -44,64 +38,57 @@ public class ReportController {
 
     @GetMapping(value = "employee")
     public void employeeReport(HttpServletResponse response) throws Exception {
-        response.setContentType("text/html");
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(employeeService.report());
-        InputStream inputStream = this.getClass().getResourceAsStream("/reports/employee_report.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(inputStream);
-
-        //JRBeanCollectionDataSource dataSource2 = new JRBeanCollectionDataSource(employeeProjectService.report()); //
-        InputStream is2 = this.getClass().getResourceAsStream("/reports/ep_report.jrxml");
-        JasperReport epReport = JasperCompileManager.compileReport(is2);
-        JRSaver.saveObject(epReport, "epReport.jasper");
-
-        JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
-        //JasperPrint subreportPrinter = JasperFillManager.fillReport(epReport, null, dataSource2); //
-        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
-        exporter.setExporterInput(new SimpleExporterInput(print));
-        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+        JasperPrint print = prepareReport(response, employeeService.report(), "/reports/employee_report.jrxml");
+        HtmlExporter exporter = prepareExporter(new SimpleExporterInput(print),
+                new SimpleHtmlExporterOutput(response.getWriter()),
+                new SimpleHtmlReportConfiguration());
         exporter.exportReport();
     }
 
-
     @GetMapping(value = "project")
-    public void projectReport(HttpServletResponse response) throws Exception {
-        response.setContentType("text/html");
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(projectService.report());
-        InputStream inputStream = this.getClass().getResourceAsStream("/reports/project_report.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(inputStream);
+    public void projectReport(HttpServletResponse response) throws Exception{
 
-        //JRSaver.saveObject(report, "projectReport.jasper");
-
-        JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
-        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
-        exporter.setExporterInput(new SimpleExporterInput(print));
-        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+        JasperPrint print = prepareReport(response, projectService.report(), "/reports/project_report.jrxml");
+        HtmlExporter exporter = prepareExporter(new SimpleExporterInput(print),
+                new SimpleHtmlExporterOutput(response.getWriter()),
+                new SimpleHtmlReportConfiguration());
         exporter.exportReport();
     }
 
     @RequestMapping(value = "statistics")
     public void statistics(HttpServletResponse response) throws Exception {
-        response.setContentType("text/html");
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(statisticsService.report());
-        InputStream inputStream = this.getClass().getResourceAsStream("/reports/statistics.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(inputStream);
-
-
-        JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
-
-//        JasperViewer.viewReport(print);
-
-        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
-        exporter.setExporterInput(new SimpleExporterInput(print));
-        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+        JasperPrint print = prepareReport(response, statisticsService.report(),
+                "/reports/statistics.jrxml");
 
         SimpleHtmlReportConfiguration configuration = new SimpleHtmlReportConfiguration();
         configuration.setEmbedImage(true);
-        exporter.setConfiguration(configuration);
+
+        HtmlExporter exporter = prepareExporter(new SimpleExporterInput(print),
+                new SimpleHtmlExporterOutput(response.getWriter()),
+                configuration);
 
         exporter.exportReport();
 
-
     }
 
+    private JasperPrint prepareReport(HttpServletResponse response, List<Map<String, Object>> collectionDataSource,
+                               String resourceStreamPath) throws Exception{
+        response.setContentType("text/html");
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(collectionDataSource);
+        InputStream inputStream = this.getClass().getResourceAsStream(resourceStreamPath);
+        JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+        return JasperFillManager.fillReport(report, null, dataSource);
+    }
+
+    private HtmlExporter prepareExporter(ExporterInput input, HtmlExporterOutput output,
+                                         HtmlReportConfiguration configuration) {
+
+        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+        exporter.setExporterInput(input);
+        exporter.setExporterOutput(output);
+        exporter.setConfiguration(configuration);
+
+        return exporter;
+    }
 }

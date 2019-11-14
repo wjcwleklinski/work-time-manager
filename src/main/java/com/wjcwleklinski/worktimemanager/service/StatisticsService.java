@@ -1,10 +1,8 @@
 package com.wjcwleklinski.worktimemanager.service;
 
-import com.wjcwleklinski.worktimemanager.entity.Employee;
 import com.wjcwleklinski.worktimemanager.entity.EmployeeProject;
 import com.wjcwleklinski.worktimemanager.entity.Project;
 import com.wjcwleklinski.worktimemanager.repository.EmployeeProjectRepository;
-import com.wjcwleklinski.worktimemanager.repository.EmployeeRepository;
 import com.wjcwleklinski.worktimemanager.repository.ProjectRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +17,12 @@ import java.util.Map;
 public class StatisticsService {
 
 
-
     @Autowired
     private ProjectRepository projectRepository;
 
     @Autowired
     private EmployeeProjectRepository employeeProjectRepository;
 
-    @Autowired
-    private Logger logger;
 
     public List<Map<String, Object>> report() {
 
@@ -43,11 +38,9 @@ public class StatisticsService {
                     totalProjectHours += ep.getHours();
                 }
             }
-            logger.warn(projectId + "hours: " + totalProjectHours);
             reportItem.put("hours", totalProjectHours);
             result.add(reportItem);
         }
-        logger.warn(result.toString());
         return result;
     }
 }

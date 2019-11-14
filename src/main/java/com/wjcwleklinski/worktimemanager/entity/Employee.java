@@ -4,6 +4,7 @@ package com.wjcwleklinski.worktimemanager.entity;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
@@ -25,7 +26,7 @@ public class Employee {
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employeeProjectId.employeeId")
-    private List<EmployeeProject> assignedProjects;
+    private Set<EmployeeProject> assignedProjects;
 
     @Column(name = "total_hours")
     private Integer totalHours = 0;
@@ -74,11 +75,11 @@ public class Employee {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<EmployeeProject> getAssignedProjects() {
+    public Set<EmployeeProject> getAssignedProjects() {
         return assignedProjects;
     }
 
-    public void setAssignedProjects(List<EmployeeProject> assignedProjects) {
+    public void setAssignedProjects(Set<EmployeeProject> assignedProjects) {
         this.assignedProjects = assignedProjects;
     }
 
