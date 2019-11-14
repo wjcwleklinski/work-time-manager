@@ -13,5 +13,8 @@
     <br>
     <br>
     <a href="${pageContext.request.contextPath }/report/project" target="_blank">Project Report</a>
+    <br>
+    <br>
+    <a href="${pageContext.request.contextPath }/report/statistics" target="_blank">Statistics</a>
 </body>
 </html>

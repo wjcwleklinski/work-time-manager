@@ -3,12 +3,15 @@ package com.wjcwleklinski.worktimemanager.controller;
 import com.wjcwleklinski.worktimemanager.service.EmployeeProjectService;
 import com.wjcwleklinski.worktimemanager.service.EmployeeService;
 import com.wjcwleklinski.worktimemanager.service.ProjectService;
+import com.wjcwleklinski.worktimemanager.service.StatisticsService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.util.JRSaver;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
+import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +33,9 @@ public class ReportController {
 
     @Autowired
     private EmployeeProjectService employeeProjectService;
+
+    @Autowired
+    private StatisticsService statisticsService;
 
     @GetMapping
     public String index(ModelMap modelMap) {
@@ -71,6 +77,31 @@ public class ReportController {
         exporter.setExporterInput(new SimpleExporterInput(print));
         exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
         exporter.exportReport();
+    }
+
+    @RequestMapping(value = "statistics")
+    public void statistics(HttpServletResponse response) throws Exception {
+        response.setContentType("text/html");
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(statisticsService.report());
+        InputStream inputStream = this.getClass().getResourceAsStream("/reports/statistics.jrxml");
+        JasperReport report = JasperCompileManager.compileReport(inputStream);
+
+
+        JasperPrint print = JasperFillManager.fillReport(report, null, dataSource);
+
+//        JasperViewer.viewReport(print);
+
+        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+        exporter.setExporterInput(new SimpleExporterInput(print));
+        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+
+        SimpleHtmlReportConfiguration configuration = new SimpleHtmlReportConfiguration();
+        configuration.setEmbedImage(true);
+        exporter.setConfiguration(configuration);
+
+        exporter.exportReport();
+
+
     }
 
 }
