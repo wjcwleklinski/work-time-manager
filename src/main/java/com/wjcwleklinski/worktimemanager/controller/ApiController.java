@@ -7,8 +7,6 @@ import com.wjcwleklinski.worktimemanager.entity.Project;
 import com.wjcwleklinski.worktimemanager.exception.EmployeeNotFoundException;
 import com.wjcwleklinski.worktimemanager.exception.EmployeeProjectNotFoundException;
 import com.wjcwleklinski.worktimemanager.exception.WrongFieldNameException;
-import com.wjcwleklinski.worktimemanager.repository.EmployeeProjectRepository;
-import com.wjcwleklinski.worktimemanager.repository.EmployeeRepository;
 import com.wjcwleklinski.worktimemanager.service.EmployeeProjectService;
 import com.wjcwleklinski.worktimemanager.service.EmployeeService;
 import com.wjcwleklinski.worktimemanager.service.ProjectService;

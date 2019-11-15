@@ -33,6 +33,11 @@ public class Project {
 
     public Project() {}
 
+    public Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
