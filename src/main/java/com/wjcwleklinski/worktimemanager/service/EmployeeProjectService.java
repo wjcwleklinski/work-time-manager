@@ -14,19 +14,19 @@ public class EmployeeProjectService {
     @Autowired
     private EmployeeProjectRepository employeeProjectRepository;
 
-    public List<Map<String, Object>> report() {
-
-        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-
-        for(EmployeeProject ep : employeeProjectRepository.findAll()) {
-            Map<String, Object> reportItem = new HashMap<>();
-            reportItem.put("projectId", ep.getProjectId());
-            reportItem.put("hours", ep.getHours());
-            result.add(reportItem);
-        }
-
-        return result;
-    }
+//    public List<Map<String, Object>> report() {
+//
+//        List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+//
+//        for(EmployeeProject ep : employeeProjectRepository.findAll()) {
+//            Map<String, Object> reportItem = new HashMap<>();
+//            reportItem.put("projectId", ep.getProjectId());
+//            reportItem.put("hours", ep.getHours());
+//            result.add(reportItem);
+//        }
+//
+//        return result;
+//    }
 
     public Optional<EmployeeProject> findById(EmployeeProjectId id) {
         return employeeProjectRepository.findById(id);
