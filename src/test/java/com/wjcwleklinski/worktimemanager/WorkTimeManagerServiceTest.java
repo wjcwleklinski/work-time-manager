@@ -2,7 +2,6 @@ package com.wjcwleklinski.worktimemanager;
 
 import com.wjcwleklinski.worktimemanager.entity.Employee;
 import com.wjcwleklinski.worktimemanager.entity.Project;
-import com.wjcwleklinski.worktimemanager.service.EmployeeProjectService;
 import com.wjcwleklinski.worktimemanager.service.EmployeeService;
 import com.wjcwleklinski.worktimemanager.service.ProjectService;
 import org.junit.Assert;
@@ -14,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +26,6 @@ public class WorkTimeManagerServiceTest {
 
     @Autowired
     private ProjectService projectService;
-
 
 
     @Before

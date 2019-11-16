@@ -93,8 +93,6 @@ public class ApiController {
     }
 
 
-
-
     @ExceptionHandler(EmployeeProjectNotFoundException.class)
     public ResponseEntity<Error> recordNotFound(EmployeeProjectNotFoundException e) {
 
